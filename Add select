@@ -1,0 +1,32 @@
+#!/bin/bash
+#
+# Distributed under the terms of GNU GPL version 2
+#
+# Origninal author:
+# http://marius.scurtescu.com/?p=102
+#
+#
+# modified 07/27/2011 :
+#   - added condition on add (if canceled do nothing)
+#   - corrected awk script
+# modified 09/25/2010 :
+# 	- added the pipe to see what appens in real time + some text
+#	- did a selection dialog to select the file you want to add
+#
+# author: remi.flamary at gmail.com
+
+
+LIST=$(svn status | awk '{if ($1=="?")  print "FALSE ",$2  }')
+
+FILESTOCOMMIT=$(zenity --list --width=400 --height=500 --text="Choose files to add." --title="SVN Add: Files to commit" --checklist --column="" --column="File" $LIST --separator=" ")
+
+if [ $? = 0 ]
+then
+#if ($FILESTOCOMMIT != "")
+#do
+(echo "Adding files:"
+svn add $FILESTOCOMMIT 
+echo "done") |zenity --text-info --title="Subversion: Add" --width=600 --height=400 --window-icon="`dirname $0`/svn.xpm"
+
+fi
+#done

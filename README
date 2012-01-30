@@ -1,0 +1,46 @@
+--------------------------------------------------------------------
+                       SimpleSVN scripts
+--------------------------------------------------------------------
+
+Author : Rémi Flamary
+
+These scripts are a list of simple subversion scripts modified from 
+nautilus svn scripts:
+http://marius.scurtescu.com/?p=102
+
+Basically I just added pipes that can show you the evolution of the 
+svn output witout waiting for the finall result. And the commit script
+ was modified in order to be more tortoise-like.
+
+The name of the scripts is a tribute to both a really nice algorithm
+to solve QP problems and a matlab toolbox from Gaelle Loosli that you
+can download here:
+http://gaelle.loosli.fr/ 
+
+1. Description
+--------------
+
+This package contains:
+Add   		Add the selected files
+Add select    	show a selectable list of the files for adding
+Commit     	show a list of modified files for commit
+Update   	Update the svn folder
+SVN Info	Get SVN info in a text box
+SVN Status  	Get SVN status in a list box
+svn.xpm		Icon for the zenity dialogs
+SVN 		Folder containing other scripts
+readme.txt 	This file
+
+2. Installation
+---------------
+
+You can uses those scripts by command line and copy those into you 
+local ~/bin folder 
+
+Required packages (debian): zenity
+
+You can use them easily in gnome/nautilus by copying all the files 
+into the ~/.gnome2/nautilus-scripts.
+
+You can even change their icons (with nautilus) for more readability.
+

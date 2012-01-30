@@ -1,0 +1,23 @@
+#!/bin/bash
+#
+# Distributed under the terms of GNU GPL version 2
+#
+#
+#
+# created 10/20/2010 :
+# 	- added the pipe to see what appens in real time + some text
+#
+# author: remi.flamary at gmail.com
+
+
+ICONPATH="`dirname $0`/svn.xpm"
+
+URL=`zenity --file-selection --directory --title="Export to ..." --window-icon="$ICONPATH" 2>&1`
+
+if [ $? -eq 0 ] ; then
+(
+ echo "Export:"   
+svn export . $URL --force
+echo "done") | zenity --text-info --title="Subversion: export" --width=600 --height=400 --window-icon="$ICONPATH"
+
+fi

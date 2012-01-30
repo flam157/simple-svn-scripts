@@ -1,0 +1,19 @@
+#!/bin/bash
+#
+# Distributed under the terms of GNU GPL version 2
+#
+# Origninal author:
+# http://marius.scurtescu.com/?p=102
+#
+#
+# modified 09/25/2010 :
+# 	- added the pipe to see what appens in real time + some text
+#
+# author: remi.flamary at gmail.com
+
+
+( echo "Info $@:"
+    svn info "$@"
+    echo "Done."
+    ) | zenity --text-info --title="Subversion: Info" --width=600 --height=400 --window-icon="`dirname $0`/svn.xpm"
+

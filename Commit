@@ -1,0 +1,47 @@
+#!/bin/bash
+#
+# Distributed under the terms of GNU GPL version 2
+#
+# Origninal author:
+# http://marius.scurtescu.com/?p=102
+#
+#
+# modified 07/27/2011 :
+#   - added non-interactive + error redirection to know if there is a problem
+#   - added condition on add (if canceled do nothing)
+#   - corrected awk script
+# modified 09/25/2010 :
+# 	- added the pipe to see what appens in real time + some text
+#	- did a selection dialog to select the file you want to commit
+# modified 09/09/2010 :
+# 	- corrected bug that commited all the time
+#
+# author: remi.flamary at gmail.com
+
+LOGMESSAGEFILE=`mktemp -t svn_log.XXXXXX`
+
+ICONPATH="`dirname $0`/svn.xpm"
+
+CHANGEDFILES=$(svn status | awk '/A |M / { print "TRUE ",$2  }')
+
+FILESTOCOMMIT=$(zenity --list --width=400 --height=500 --text="Choose files to commit.\nMessage: $LOGMESSAGE" --title="SVN Commit: Files to commit" --checklist --column="" --column="File" $CHANGEDFILES --separator=" ")
+
+
+if [ $? = 0 ]
+then
+#if (${#FILESTOCOMMIT} >0)
+
+#do
+
+zenity --text-info --title "Subversion: Commit message" --width=400 --height=400 --editable --window-icon="$ICONPATH" > $LOGMESSAGEFILE
+
+LOGMESSAGE=`cat $LOGMESSAGEFILE`
+    (
+    echo "Commiting files:"
+    svn commit -m "$LOGMESSAGE" $FILESTOCOMMIT --non-interactive 2>&1 
+    echo "Done" )| zenity --text-info --title="Subversion: Commiting files" --width=600 --height=400 --window-icon="`dirname $0`/svn.xpm"
+
+fi
+#done
+
+
